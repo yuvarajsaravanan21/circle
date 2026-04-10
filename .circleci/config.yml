@@ -1,33 +1,46 @@
 version: 2.1
 
 jobs:
-  build-and-push:
+  build-push-deploy:
     docker:
       - image: cimg/base:stable
 
     steps:
       - checkout
 
-      # 🔥 Enable Docker in CircleCI
+      # Enable Docker
       - setup_remote_docker
 
-      # 🐳 Login to DockerHub
+      # Login to Docker Hub
       - run:
-          name: Login to DockerHub
+          name: Docker Login
           command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
-      # 🏗️ Build Docker image
+      # Build Image
       - run:
           name: Build Docker Image
-          command: docker build -t $DOCKER_USER/demo-app .
+          command: docker build -t $DOCKER_USER/demo-app:latest .
 
-      # 🚀 Push Docker image
+      # Push Image
       - run:
           name: Push Docker Image
-          command: docker push $DOCKER_USER/demo-app
+          command: docker push $DOCKER_USER/demo-app:latest
+
+      # Install kubectl
+      - run:
+          name: Install kubectl
+          command: |
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            chmod +x kubectl
+            sudo mv kubectl /usr/local/bin/
+
+      # Deploy to Kubernetes
+      - run:
+          name: Deploy to Kubernetes
+          command: kubectl apply -f k8s/
 
 workflows:
   version: 2
-  build_and_push_workflow:
+  deploy_pipeline:
     jobs:
-      - build-and-push
+      - build-push-deploy
