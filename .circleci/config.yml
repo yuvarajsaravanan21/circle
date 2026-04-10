@@ -1,0 +1,25 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+
+      - run:
+          name: Build Docker Image
+          command: docker build -t yourdockerhubusername/demo-app .
+
+      - run:
+          name: Login to DockerHub
+          command: echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+
+      - run:
+          name: Push Image
+          command: docker push yourdockerhubusername/demo-app
+
+workflows:
+  build_and_push:
+    jobs:
+      - build
