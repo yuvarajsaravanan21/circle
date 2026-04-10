@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CI/CD Demo</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      text-align: center;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      padding: 30px;
+      background: rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #ff9800;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #e68900;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 10px;
+      background: rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🚀 CI/CD Demo Project</h1>
+    <p>Using GitHub, Docker, Kubernetes & CircleCI</p>
+  </header>
+
+  <div class="container">
+    <h2>Hello 👋</h2>
+    <p>This is my automated deployment demo</p>
+
+    <button onclick="showMessage()">Click Me</button>
+
+    <div id="message"></div>
+  </div>
+
+  <footer>
+    <p>Made for DevOps Demo 🎯</p>
+  </footer>
+
+  <script>
+    function showMessage() {
+      document.getElementById("message").innerHTML =
+        "✅ Deployment Successful using CI/CD!";
+    }
+  </script>
+
+</body>
+</html>
